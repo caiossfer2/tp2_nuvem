@@ -1,0 +1,6 @@
+services:
+  server:
+    build:
+      context: .
+    ports:
+      - 52008:52008

@@ -1,0 +1,15 @@
+docker login
+docker build . -t caiossferr/api:0.1
+docker build . -t caiossferr/ml_model:0.1
+docker push caiossferr/api:0.1
+docker push caiossferr/ml_model:0.1
+
+
+kubectl -n caioferreira apply -f deployment_api.yaml 
+kubectl -n caioferreira apply -fservice_api.yaml
+
+kubectl -n caioferreira get deployments
+kubectl -n caioferreira get services
+
+kubectl delete deploy playlist-recommender-api-deployment
+kubectl delete service api-service

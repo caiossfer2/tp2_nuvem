@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-model-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ml-model-trainer
+  template:
+    metadata:
+      labels:
+        app: ml-model-trainer
+    spec:
+      containers:
+        - name: ml-model-trainer
+          image: caiossferr/ml_model:0.1
+          command: ["python", "train_model.py"]
