@@ -8,6 +8,7 @@ from datetime import datetime
 MIN_SUPPORT = 0.06  
 MIN_CONFIDENCE = 0.5  
 
+model_path = "/app/model/recommendation_model.pkl"
 
 def train_model():
     data = pd.read_csv('2023_spotify_ds1.csv')
@@ -17,7 +18,7 @@ def train_model():
     all_tracks = data['track_name'].tolist()
     track_counts = Counter(all_tracks)
     last_update_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    with open('recommendation_model.pkl', 'wb') as f:
+    with open(model_path, 'wb') as f:
         pickle.dump((rules, track_counts, last_update_date), f)
 
 

@@ -17,3 +17,10 @@ spec:
           image: caiossferr/api:0.1
           ports:
             - containerPort: 52008
+          volumeMounts:
+            - mountPath: /app/model
+              name: model-storage
+      volumes:
+        - name: model-storage
+          persistentVolumeClaim:
+            claimName: project2-pvc-caioferreira

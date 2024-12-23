@@ -2,12 +2,14 @@ from flask import Flask, request, jsonify
 import pickle
 from datetime import date
 
-MIN_SUPPORT_THRESHOLD = 0.6
+MIN_SUPPORT_THRESHOLD = 0.50
 CODE_VERSION = 1.0
 SONGS_NUMBER = 7
 
 app = Flask(__name__)
-app.model = pickle.load(open("recommendation_model.pkl", "rb"))
+
+model_path = "/app/model/recommendation_model.pkl"
+app.model = pickle.load(open(model_path, "rb"))
 
 def filter_rules_by_confidence(rules, min_confidence):
     filtered_rules = [rule for rule in rules if rule[2] >= min_confidence]
@@ -54,22 +56,3 @@ def recommend():
     )
 
  
-
-# flask --app api.py run --port 52008
-
-
-
-
-
-#  @app.route("/api/recommend", methods=["POST"])
-# def recommend():
-#     request_data = request.json
-#     songs_set = set(request_data["songs"])
-#     _, _, last_update_date = app.model
-#     return jsonify(
-#         {
-#             "songs": get_recommendations(songs_set, request_data['songs_number']),
-#             "version": CODE_VERSION,
-#             "model_date": last_update_date
-#         }
-#     )

@@ -16,3 +16,10 @@ spec:
         - name: ml-model-trainer
           image: caiossferr/ml_model:0.1
           command: ["python", "train_model.py"]
+          volumeMounts:
+            - mountPath: /app/output
+              name: model-storage
+      volumes:
+        - name: model-storage
+          persistentVolumeClaim:
+            claimName: project2-pvc-caioferreira

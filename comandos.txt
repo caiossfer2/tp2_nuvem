@@ -15,3 +15,11 @@ kubectl -n caioferreira get pvc
 
 kubectl delete deploy playlist-recommender-api-deployment
 kubectl delete service api-service
+
+
+
+
+
+
+
+# flask --app api.py run --port 52008

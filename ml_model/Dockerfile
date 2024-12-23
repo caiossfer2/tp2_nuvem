@@ -19,6 +19,7 @@ RUN adduser \
 
 COPY playlist_rules_generator.py .
 COPY requirements.txt .
+
 # tirar
 COPY 2023_spotify_ds1.csv .
 
