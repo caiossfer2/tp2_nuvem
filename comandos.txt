@@ -6,8 +6,10 @@ docker push caiossferr/ml_model:0.1
 
 
 kubectl -n caioferreira apply -f deployment_api.yaml 
+kubectl -n caioferreira apply -f ml_model_job.yaml 
 kubectl -n caioferreira apply -f service_api.yaml
 kubectl -n caioferreira apply -f pvc.yaml
+kubectl -n caioferreira apply -f deployment_ml_model.yaml 
 
 kubectl -n caioferreira get deployments
 kubectl -n caioferreira get services
@@ -15,7 +17,8 @@ kubectl -n caioferreira get pvc
 
 kubectl delete deploy playlist-recommender-api-deployment
 kubectl delete service api-service
-
+kubectl delete job ml-trainer-job
+kubectl delete pvc project2-pv2-caioferreira
 
 
 

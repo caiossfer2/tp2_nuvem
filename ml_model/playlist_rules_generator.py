@@ -3,12 +3,15 @@ from fpgrowth_py import fpgrowth
 import pickle
 from collections import Counter
 from datetime import datetime
+import os
 
 
 MIN_SUPPORT = 0.06  
 MIN_CONFIDENCE = 0.5  
 
 model_path = "/app/model/recommendation_model.pkl"
+
+os.makedirs(os.path.dirname(model_path), exist_ok=True)
 
 def train_model():
     data = pd.read_csv('2023_spotify_ds1.csv')

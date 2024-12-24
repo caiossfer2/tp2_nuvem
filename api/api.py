@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 import pickle
 from datetime import date
+import os
+
 
 MIN_SUPPORT_THRESHOLD = 0.50
 CODE_VERSION = 1.0
@@ -9,11 +11,33 @@ SONGS_NUMBER = 7
 app = Flask(__name__)
 
 model_path = "/app/model/recommendation_model.pkl"
-app.model = pickle.load(open(model_path, "rb"))
+
+os.makedirs(os.path.dirname(model_path), exist_ok=True)
+
+
+last_known_update_date = None
+
+def load_model():
+    global last_known_update_date
+    with open(model_path, 'rb') as f:
+        model_data = pickle.load(f)
+
+    app.model, _, last_update_date = model_data
+    
+    # Verifique se a data de atualização mudou
+    if last_known_update_date != last_update_date:
+        print("Modelo atualizado. Recarregando...")
+        last_known_update_date = last_update_date
+        app.model = model_data
+
+
+
 
 def filter_rules_by_confidence(rules, min_confidence):
     filtered_rules = [rule for rule in rules if rule[2] >= min_confidence]
     return filtered_rules
+
+
 
 def get_recommendations(user_tracks, num_recommendations=5):
     rules, track_counts, _ = app.model
@@ -46,6 +70,10 @@ def get_recommendations(user_tracks, num_recommendations=5):
 def recommend():
     request_data = request.json
     songs_set = set(request_data["songs"])
+
+    # Antes de processar a solicitação, verifique se o modelo precisa ser recarregado
+    load_model()
+
     _, _, last_update_date = app.model
     return jsonify(
         {
@@ -55,4 +83,8 @@ def recommend():
         }
     )
 
- 
+if __name__ == '__main__':
+    # Carregar o modelo pela primeira vez ao iniciar a API
+    load_model()
+    app.run(host='0.0.0.0', port=5008)
+

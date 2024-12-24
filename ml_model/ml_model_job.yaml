@@ -16,5 +16,5 @@ spec:
       volumes:
         - name: model-storage
           persistentVolumeClaim:
-            claimName: project2-pvc-caioferreira
+            claimName: project2-pv2-caioferreira
   backoffLimit: 4

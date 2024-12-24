@@ -25,8 +25,6 @@ USER appuser
 
 COPY api.py .
 COPY requirements.txt .
-# tirar
-COPY recommendation_model.pkl . 
 
 ENV FLASK_APP=api.py 
 
