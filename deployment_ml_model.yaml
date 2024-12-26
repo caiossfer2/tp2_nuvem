@@ -15,10 +15,13 @@ spec:
       containers:
         - name: ml-model-trainer
           image: caiossferr/ml_model:0.1
-          command: ["python", "train_model.py"]
+          command: ["python", "playlist_rules_generator.py"]
           volumeMounts:
-            - mountPath: /app/output
+            - mountPath: /app/model
               name: model-storage
+          env:
+            - name: DATASET_URL
+              value: "inserir"
       volumes:
         - name: model-storage
           persistentVolumeClaim:

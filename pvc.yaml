@@ -3,8 +3,6 @@ kind: PersistentVolumeClaim
 metadata:
   namespace: caioferreira
   name: project2-pv2-caioferreira
-  labels:
-    type: local
 spec:
   resources:
     requests:
@@ -15,3 +13,4 @@ spec:
   selector:
     matchLabels:
       namespace: caioferreira
+  volumeName: project2-pv2-caioferreira

@@ -5,10 +5,13 @@ metadata:
 spec:
   template:
     spec:
+      securityContext:
+        runAsUser: 1010
+        fsGroup: 1010
       containers:
         - name: ml-model-trainer
           image: caiossferr/ml_model:0.1
-          command: ["python", "train_model.py"]
+          command: ["python", "playlist_rules_generator.py"]
           volumeMounts:
             - mountPath: /app/model
               name: model-storage

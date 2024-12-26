@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ml-trainer-job
+spec:
+  template:
+    spec:
+      securityContext:
+        runAsUser: 1010
+        fsGroup: 1010
+      containers:
+        - name: ml-model-trainer
+          image: caiossferr/ml_model:0.1
+          command: ["python", "playlist_rules_generator.py"]
+          volumeMounts:
+            - mountPath: /app/model
+              name: model-storage
+          env:
+            - name: DATASET_URL
+              value: "inserir"
+      restartPolicy: Never
+      volumes:
+        - name: model-storage
+          persistentVolumeClaim:
+            claimName: project2-pv2-caioferreira
+  backoffLimit: 4
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playlist-recommender-api-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: playlist-recommender-api
+  template:
+    metadata:
+      labels:
+        app: playlist-recommender-api
+    spec:
+      containers:
+        - name: playlist-recommender-api
+          image: caiossferr/api:0.2
+          ports:
+            - containerPort: 52008
+          volumeMounts:
+            - mountPath: /app/model
+              name: model-storage
+      volumes:
+        - name: model-storage
+          persistentVolumeClaim:
+            claimName: project2-pv2-caioferreira
