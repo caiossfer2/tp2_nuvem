@@ -17,7 +17,7 @@ spec:
               name: model-storage
           env:
             - name: DATASET_URL
-              value: "inserir"
+              value: "https://raw.githubusercontent.com/caiossfer2/tp2_nuvem/master/datasets/2023_spotify_ds1.csv"
       restartPolicy: Never
       volumes:
         - name: model-storage
