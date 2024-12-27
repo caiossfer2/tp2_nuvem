@@ -10,7 +10,7 @@ spec:
         fsGroup: 1010
       containers:
         - name: ml-model-trainer
-          image: caiossferr/ml_model:0.1
+          image: caiossferr/ml_model:0.2
           command: ["python", "playlist_rules_generator.py"]
           volumeMounts:
             - mountPath: /app/model
