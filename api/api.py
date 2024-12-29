@@ -5,8 +5,7 @@ import os
 
 
 MIN_SUPPORT_THRESHOLD = 0.50
-CODE_VERSION = 1.0
-SONGS_NUMBER = 7
+SONGS_NUMBER = 10
 
 app = Flask(__name__)
 
@@ -22,9 +21,8 @@ def load_model():
     with open(model_path, 'rb') as f:
         model_data = pickle.load(f)
 
-    app.model, _, last_update_date = model_data
+    _, _, last_update_date, _ = model_data
     
-    # Verifique se a data de atualização mudou
     if last_known_update_date != last_update_date:
         print("Modelo atualizado. Recarregando...")
         last_known_update_date = last_update_date
@@ -40,12 +38,11 @@ def filter_rules_by_confidence(rules, min_confidence):
 
 
 def get_recommendations(user_tracks, num_recommendations=5):
-    rules, track_counts, _ = app.model
+    rules, track_counts, _, _ = app.model
 
     filtered_rules = filter_rules_by_confidence(rules, MIN_SUPPORT_THRESHOLD)
     recommendations = set()
 
-    # Tentar gerar recomendações baseadas em regras
     for rule in filtered_rules:
         antecedents = rule[0]
         consequents = rule[1]
@@ -53,10 +50,8 @@ def get_recommendations(user_tracks, num_recommendations=5):
         if antecedents.issubset(user_tracks):
             recommendations.update(consequents)
 
-    # Remover faixas já ouvidas das recomendações
     recommendations.difference_update(user_tracks)
 
-    # Se não houver recomendações suficientes, usar fallback de popularidade
     if len(recommendations) < num_recommendations:
         most_common_tracks = [track for track, _ in track_counts.most_common() if track not in user_tracks]
         additional_recommendations = most_common_tracks[:num_recommendations - len(recommendations)]
@@ -71,20 +66,18 @@ def recommend():
     request_data = request.json
     songs_set = set(request_data["songs"])
 
-    # Antes de processar a solicitação, verifique se o modelo precisa ser recarregado
     load_model()
 
-    _, _, last_update_date = app.model
+    _, _, last_update_date, version = app.model
     return jsonify(
         {
             "songs": get_recommendations(songs_set, SONGS_NUMBER),
-            "version": CODE_VERSION,
+            "version": version,
             "model_date": last_update_date
         }
     )
 
 if __name__ == '__main__':
-    # Carregar o modelo pela primeira vez ao iniciar a API
     load_model()
     app.run(host='0.0.0.0', port=5008)
 
