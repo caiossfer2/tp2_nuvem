@@ -16,9 +16,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 RUN chmod -R a+w /app
 
-RUN mkdir -p /app/model && chmod -R 777 /app/model
-
-USER appuser
+RUN mkdir -p /app/model
 
 EXPOSE 8000
 
