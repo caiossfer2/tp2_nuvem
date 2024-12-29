@@ -1,11 +1,18 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: ml-trainer-job
+  name: playlist-recommender-api-deployment
 spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: playlist-recommender-api
   template:
+    metadata:
+      labels:
+        app: playlist-recommender-api
     spec:
-      containers:
+      initContainers:
         - name: ml-model-trainer
           image: caiossferr/ml_model:0.3
           command: ["python", "playlist_rules_generator.py"]
@@ -15,28 +22,6 @@ spec:
           env:
             - name: DATASET_URL
               value: "https://raw.githubusercontent.com/caiossfer2/tp2_nuvem/master/datasets/2023_spotify_ds1.csv"
-      restartPolicy: Never
-      volumes:
-        - name: model-storage
-          persistentVolumeClaim:
-            claimName: project2-pv2-caioferreira
-  backoffLimit: 4
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: playlist-recommender-api-deployment
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: playlist-recommender-api
-  template:
-    metadata:
-      labels:
-        app: playlist-recommender-api
-    spec:
       containers:
         - name: playlist-recommender-api
           image: caiossferr/api:0.3
