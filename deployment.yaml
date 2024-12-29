@@ -5,9 +5,6 @@ metadata:
 spec:
   template:
     spec:
-      securityContext:
-        runAsUser: 1010
-        fsGroup: 1010
       containers:
         - name: ml-model-trainer
           image: caiossferr/ml_model:0.3
