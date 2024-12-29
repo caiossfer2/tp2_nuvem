@@ -7,7 +7,8 @@ import os
 
 
 MIN_SUPPORT = 0.06  
-MIN_CONFIDENCE = 0.5  
+MIN_CONFIDENCE = 0.5
+version = "1.0"  
 
 url = os.getenv("DATASET_URL")
 
@@ -25,7 +26,7 @@ def train_model():
     track_counts = Counter(all_tracks)
     last_update_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     with open(model_path, 'wb') as f:
-        pickle.dump((rules, track_counts, last_update_date), f)
+        pickle.dump((rules, track_counts, last_update_date, version), f)
 
 
 train_model()
