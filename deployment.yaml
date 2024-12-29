@@ -2,20 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: playlist-recommender-api-deployment
+  namespace: caioferreira
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: playlist-recommender-api
+      app: playlist-recommender-cssf
   template:
     metadata:
       labels:
-        app: playlist-recommender-api
+        app: playlist-recommender-cssf
     spec:
       initContainers:
         - name: ml-model-trainer
           image: caiossferr/ml_model:0.3
-          command: ["python", "playlist_rules_generator.py"]
           volumeMounts:
             - mountPath: /app/model
               name: model-storage
