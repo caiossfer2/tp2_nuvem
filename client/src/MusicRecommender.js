@@ -11,6 +11,8 @@ import {
   Typography,
 } from "@mui/material";
 
+const URL = "http://localhost:32051/api/recommend";
+
 function MusicRecommender() {
   const [songs, setSongs] = useState([]);
   const [selectedSongs, setSelectedSongs] = useState([]);
@@ -30,7 +32,7 @@ function MusicRecommender() {
 
   const getRecommendations = () => {
     axios
-      .post("http://localhost:32051/api/recommend", {
+      .post(URL, {
         songs: selectedSongs.map((song) => song.track_name),
       })
       .then((response) => {
