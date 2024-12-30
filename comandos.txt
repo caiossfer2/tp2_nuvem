@@ -1,6 +1,6 @@
 docker login
-docker build . -t caiossferr/api:0.4
-docker push caiossferr/api:0.4
+docker build . -t caiossferr/api:0.5
+docker push caiossferr/api:0.5
 
 docker build . -t caiossferr/ml_model:0.4
 docker push caiossferr/ml_model:0.4

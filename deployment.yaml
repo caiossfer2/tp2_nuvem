@@ -24,7 +24,7 @@ spec:
               value: "https://raw.githubusercontent.com/caiossfer2/tp2_nuvem/master/datasets/2023_spotify_ds1.csv"
       containers:
         - name: playlist-recommender-api
-          image: caiossferr/api:0.4
+          image: caiossferr/api:0.5
           ports:
             - containerPort: 52008
           volumeMounts:

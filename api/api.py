@@ -2,12 +2,14 @@ from flask import Flask, request, jsonify
 import pickle
 from datetime import date
 import os
+from flask_cors import CORS
 
 
 MIN_SUPPORT_THRESHOLD = 0.50
 SONGS_NUMBER = 10
 
 app = Flask(__name__)
+CORS(app)  
 
 model_path = "/app/model/recommendation_model.pkl"
 
