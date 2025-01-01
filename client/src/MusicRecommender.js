@@ -49,7 +49,7 @@ function MusicRecommender() {
 
   return (
     <Container>
-      <Grid2 mt="8px">
+      <Grid2 mt="24px">
         <Typography variant="h3">Playlist Recommender</Typography>
         {!recommendations && (
           <Grid2>

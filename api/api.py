@@ -5,7 +5,7 @@ import os
 from flask_cors import CORS
 
 
-MIN_SUPPORT_THRESHOLD = 0.50
+MIN_SUPPORT_THRESHOLD = 0.60
 SONGS_NUMBER = 10
 
 app = Flask(__name__)

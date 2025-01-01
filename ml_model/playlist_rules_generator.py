@@ -6,8 +6,8 @@ from datetime import datetime
 import os
 
 
-MIN_SUPPORT = 0.06  
-MIN_CONFIDENCE = 0.5
+MIN_SUPPORT = 0.95  
+MIN_CONFIDENCE = 0.4
 version = "1.0"  
 
 url = os.getenv("DATASET_URL")
@@ -21,7 +21,6 @@ def train_model():
     df = pd.read_csv(url)
     transactions = df.groupby('pid')['track_name'].apply(list).tolist()
     _, rules = fpgrowth(transactions, minSupRatio=MIN_SUPPORT, minConf=MIN_CONFIDENCE)
-    # Calcular a popularidade das faixas
     all_tracks = df['track_name'].tolist()
     track_counts = Counter(all_tracks)
     last_update_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
