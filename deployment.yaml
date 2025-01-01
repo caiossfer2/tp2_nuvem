@@ -4,7 +4,7 @@ metadata:
   name: playlist-recommender-deployment
   namespace: caioferreira
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: playlist-recommender-cssf
@@ -21,7 +21,7 @@ spec:
               name: model-storage
           env:
             - name: DATASET_URL
-              value: "https://raw.githubusercontent.com/caiossfer2/tp2_nuvem/master/datasets/2023_spotify_ds1.csv"
+              value: "https://raw.githubusercontent.com/caiossfer2/tp2_nuvem/master/datasets/2023_spotify_ds2.csv"
       containers:
         - name: playlist-recommender-api
           image: caiossferr/api:0.7
