@@ -5,8 +5,8 @@ import os
 from flask_cors import CORS
 
 
-MIN_SUPPORT_THRESHOLD = 0.4
-SONGS_NUMBER = 10
+MIN_SUPPORT_THRESHOLD = 0.3
+SONGS_NUMBER = 5
 
 app = Flask(__name__)
 CORS(app)  
@@ -53,11 +53,11 @@ def get_recommendations(user_tracks, num_recommendations=5):
             recommendations.update(consequents)
 
     recommendations.difference_update(user_tracks)
-    print("recomendações antes", recommendations)
+    print("recomendações baseadas nas regras", recommendations)
     if len(recommendations) < num_recommendations:
         most_common_tracks = [track for track, _ in track_counts.most_common() if track not in user_tracks]
         additional_recommendations = most_common_tracks[:num_recommendations - len(recommendations)]
-        print("recomendações adicionais", additional_recommendations)
+        print("recomendações músicas mais populares", additional_recommendations)
         recommendations.update(additional_recommendations)
 
     return list(recommendations)[:num_recommendations]
