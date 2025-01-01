@@ -15,7 +15,7 @@ spec:
     spec:
       initContainers:
         - name: ml-model-trainer
-          image: caiossferr/ml_model:0.5
+          image: caiossferr/ml_model:0.6
           volumeMounts:
             - mountPath: /app/model
               name: model-storage

@@ -2,8 +2,8 @@ docker login
 docker build . -t caiossferr/api:0.6
 docker push caiossferr/api:0.6
 
-docker build . -t caiossferr/ml_model:0.5
-docker push caiossferr/ml_model:0.5
+docker build . -t caiossferr/ml_model:0.6
+docker push caiossferr/ml_model:0.6
 
 kubectl -n caioferreira apply -f pvc.yaml
 kubectl -n caioferreira apply -f deployment.yaml 

@@ -6,7 +6,7 @@ from datetime import datetime
 import os
 
 
-MIN_SUPPORT = 0.95  
+MIN_SUPPORT = 0.095  
 MIN_CONFIDENCE = 0.4
 version = "1.0"  
 
