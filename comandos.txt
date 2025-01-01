@@ -16,3 +16,4 @@ kubectl -n caioferreira get pvc
 kubectl delete service api-service
 kubectl delete pvc project2-pv2-caioferreira
 
+
