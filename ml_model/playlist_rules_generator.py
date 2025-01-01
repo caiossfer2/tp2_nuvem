@@ -8,7 +8,7 @@ import os
 
 MIN_SUPPORT = 0.05
 MIN_CONFIDENCE = 0.4
-version = "1.0"  
+version = "2.0"  
 
 url = os.getenv("DATASET_URL")
 
